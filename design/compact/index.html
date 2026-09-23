@@ -189,8 +189,14 @@ td .amt{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:13.5px;co
 .viewer{position:fixed;inset:0;z-index:80;background:#181716;
   display:grid;grid-template-rows:1fr auto;padding:clamp(10px,2.5vw,34px)}
 .viewer[hidden]{display:none}
-.vstage{min-height:0;display:grid;place-items:center}
-.vstage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.vstage{min-height:0;min-width:0;display:flex;align-items:center;justify-content:center}
+/* min-width and min-height must be said out loud. A flex or grid item will not
+   shrink below its own natural size on its own, and that beats max-height, so
+   an upright photograph was drawn at full width and its top and bottom fell
+   outside the screen — it looked zoomed in. Measured on a tablet in landscape:
+   a 1600x2400 photograph came out 1121x1682 in a 1121x727 space. */
+.vstage img{max-width:100%;max-height:100%;min-width:0;min-height:0;
+  width:auto;height:auto;object-fit:contain}
 .vbtn{position:absolute;z-index:2;color:var(--lightbeige);display:grid;place-items:center;
   width:46px;height:46px;border:1px solid rgba(220,213,206,.28);background:rgba(28,27,26,.5)}
 .vbtn:hover{color:#FAF8F5;border-color:rgba(220,213,206,.6)}
