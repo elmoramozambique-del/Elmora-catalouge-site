@@ -31,6 +31,37 @@
   --ink-3:#7C746B;
   --pad:clamp(18px,4vw,56px);
   --gap:clamp(16px,2.2vw,30px);
+
+  /* Type ramp, from the ELMORA design system in Figma.
+     https://www.figma.com/design/lSZTftq4wtEJtPOLwVb2DI
+     Weight is the instrument: ExtraLight at display sizes against Medium at
+     label sizes is what gives a page made of one typeface its contrast.
+     Montserrat is the brand book's SECONDARY face — the primary, Volkga, is
+     not licensed to us yet. When it arrives only --face-display changes. */
+  --face-display:Montserrat,"Helvetica Neue",Arial,sans-serif;
+  --face-text:Montserrat,"Helvetica Neue",Arial,sans-serif;
+
+  --t-display-xl:clamp(38px,7.4vw,76px);
+  --t-display-l:clamp(30px,5.4vw,54px);
+  --t-display-m:clamp(24px,3.6vw,38px);
+  --t-heading:clamp(20px,2.4vw,26px);
+  --t-subhead:19px;
+  --t-body:15.5px;
+  --t-body-s:13.5px;
+  --t-price:15px;
+  --t-label:10px;
+  --t-micro:9px;
+
+  --w-display:200;
+  --w-soft:300;
+  --w-text:300;
+  --w-mark:500;
+
+  --track-display:-.025em;
+  --track-heading:-.014em;
+  --track-body:.004em;
+  --track-label:.22em;
+  --track-micro:.16em;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{

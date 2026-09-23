@@ -31,6 +31,37 @@
   --ink-3:#7C746B;
   --pad:clamp(18px,4vw,56px);
   --gap:clamp(16px,2.2vw,30px);
+
+  /* Type ramp, from the ELMORA design system in Figma.
+     https://www.figma.com/design/lSZTftq4wtEJtPOLwVb2DI
+     Weight is the instrument: ExtraLight at display sizes against Medium at
+     label sizes is what gives a page made of one typeface its contrast.
+     Montserrat is the brand book's SECONDARY face — the primary, Volkga, is
+     not licensed to us yet. When it arrives only --face-display changes. */
+  --face-display:Montserrat,"Helvetica Neue",Arial,sans-serif;
+  --face-text:Montserrat,"Helvetica Neue",Arial,sans-serif;
+
+  --t-display-xl:clamp(38px,7.4vw,76px);
+  --t-display-l:clamp(30px,5.4vw,54px);
+  --t-display-m:clamp(24px,3.6vw,38px);
+  --t-heading:clamp(20px,2.4vw,26px);
+  --t-subhead:19px;
+  --t-body:15.5px;
+  --t-body-s:13.5px;
+  --t-price:15px;
+  --t-label:10px;
+  --t-micro:9px;
+
+  --w-display:200;
+  --w-soft:300;
+  --w-text:300;
+  --w-mark:500;
+
+  --track-display:-.025em;
+  --track-heading:-.014em;
+  --track-body:.004em;
+  --track-label:.22em;
+  --track-micro:.16em;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
@@ -364,6 +395,56 @@ footer .r{color:var(--beige)}
   .band{min-height:260px}
   .grid{grid-template-columns:1fr;gap:34px}
 }
+
+/* ═══ the design system, applied ════════════════════════════════════════════
+   Everything below takes its size, weight and tracking from the ramp in the
+   ELMORA design system rather than from numbers invented per rule. What was
+   weak was not the colour — it was that every piece of text sat within a few
+   sizes and one weight of each other, so nothing led. */
+
+.band h1{font-family:var(--face-display);font-size:var(--t-display-xl);
+  font-weight:var(--w-display);letter-spacing:var(--track-display);line-height:1.02}
+.motto{font-size:var(--t-body-s);letter-spacing:.02em;line-height:1.9}
+.motto b{font-weight:400;letter-spacing:.01em}
+
+.chead h2{font-family:var(--face-display);font-size:var(--t-display-m);
+  font-weight:var(--w-soft);letter-spacing:var(--track-heading);line-height:1.1}
+.chead .n{font-size:var(--t-micro);letter-spacing:var(--track-micro);text-transform:uppercase}
+.chapter{margin-bottom:clamp(54px,7vw,104px)}
+.chead{padding-bottom:20px;margin-bottom:clamp(26px,3.2vw,42px)}
+.chead::before{width:56px}
+
+.cbody .eyebrow{font-size:var(--t-label);font-weight:var(--w-mark);
+  letter-spacing:var(--track-label)}
+.cbody h3{font-size:var(--t-subhead);font-weight:var(--w-text);
+  letter-spacing:.005em;line-height:1.35}
+.cbody .price{font-size:var(--t-price);font-weight:var(--w-mark);
+  letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.cbody .price em{font-size:var(--t-micro);letter-spacing:var(--track-micro)}
+
+nav button{font-size:var(--t-label);font-weight:var(--w-mark);letter-spacing:.15em}
+.rlbl,.lbl{font-size:var(--t-label);font-weight:var(--w-mark);letter-spacing:var(--track-label)}
+.rtile .rname{font-size:var(--t-subhead);font-weight:var(--w-text)}
+.info h2{font-family:var(--face-display);font-size:var(--t-display-m);
+  font-weight:var(--w-display);letter-spacing:var(--track-display)}
+.setline .n{font-weight:var(--w-display);letter-spacing:-.01em}
+
+/* ═══ the brand, once, in the middle of the page ════════════════════════════
+   One full-width charcoal band between the first and second chapter, carrying
+   the brand book's own sentence at display size. It is the only place the page
+   stops selling and simply says who Elmora is — which is why it works. */
+.brandband{margin:clamp(20px,3vw,40px) calc(var(--pad) * -1) clamp(54px,7vw,104px);
+  padding:clamp(56px,9vw,132px) var(--pad);background:var(--charcoal);
+  display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.brandband .line{font-family:var(--face-display);font-size:var(--t-display-l);
+  font-weight:var(--w-display);letter-spacing:var(--track-display);line-height:1.08;
+  color:#FAF8F5;max-width:20ch}
+.brandband .line b{font-weight:var(--w-display);color:var(--beige)}
+.brandband .sig{font-size:var(--t-micro);font-weight:var(--w-mark);
+  letter-spacing:var(--track-label);text-transform:uppercase;color:var(--beige);
+  position:relative;padding-top:15px}
+.brandband .sig::before{content:"";position:absolute;top:0;left:0;width:34px;height:1px;
+  background:var(--berry)}
 
 /* The strip that lets the owner move between design directions. It is not part
    of any direction — it disappears the moment one is chosen and built for real. */
@@ -970,7 +1051,22 @@ function reveal() {
 
 /* renderGrid() rewrites the grid, so the three run again after every change to
    the category, the collection or the search. */
-const paint = () => { secondShots(); reveal(); };
+/* The brand band, once, after the first chapter — and only when the page is
+   actually chaptered, so it never lands on a search result. */
+function brandBand() {
+  const old = document.querySelector(".brandband");
+  if (old) old.remove();
+  const chapters = document.querySelectorAll(".grid.chaptered > .chapter");
+  if (chapters.length < 3) return;
+  const band = document.createElement("div");
+  band.className = "brandband";
+  band.innerHTML =
+    '<div class="line">Elmora does not decorate spaces. <b>It defines them.</b></div>' +
+    '<div class="sig">Defined by design</div>';
+  chapters[0].after(band);
+}
+
+const paint = () => { secondShots(); reveal(); brandBand(); };
 const _renderGrid = renderGrid;
 renderGrid = function () { _renderGrid.apply(this, arguments); paint(); };
 
