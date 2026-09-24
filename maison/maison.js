@@ -93,7 +93,6 @@ function showFirst(grid, n) {
   const more = document.querySelector(`[data-more="${grid.id}"]`);
   if (more) {
     more.parentElement.hidden = !left;
-    more.querySelector(".n").textContent = left;
     more.dataset.shown = shown;
   }
 }

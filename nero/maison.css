@@ -266,7 +266,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .index h2 { font-size: clamp(26px, 3.3vw, 46px); margin: 12px 0 36px; }
 .irows { border-top: 1px solid var(--line); }
 .irow {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto 96px; align-items: center; gap: 24px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 96px; align-items: center; gap: 24px;
   padding: 16px 0; border-bottom: 1px solid var(--line); transition: padding .35s var(--ease);
 }
 .in { font-size: clamp(20px, 2.6vw, 36px); font-weight: 300; line-height: 1.2; }
@@ -280,7 +280,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .irow:hover .ith { opacity: 1; transform: none; }
   .irow:hover .in { color: var(--accent); }
 }
-@media (max-width: 600px) { .irow { grid-template-columns: minmax(0, 1fr) auto 64px; gap: 14px; } .ith { width: 64px; } }
+@media (max-width: 600px) { .irow { grid-template-columns: minmax(0, 1fr) 64px; gap: 14px; } .ith { width: 64px; } }
 
 /* ── listing pages ──────────────────────────────────────────────────────── */
 .cover { position: relative; height: 70vh; height: 70svh; min-height: 420px; overflow: hidden; background: #1f1e1d; color: #fff; }
