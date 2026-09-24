@@ -195,7 +195,7 @@ $("q").addEventListener("input", e => {
   const box = $("sresults");
   if (q.length < 2) { box.innerHTML = ""; return; }
   const hits = INDEX.p.filter(p =>
-    (p.t + " " + (p.c || "") + " " + p.g + " " + p.k).toLowerCase().includes(q)).slice(0, 40);
+    (p.t + " " + (p.c || "") + " " + p.g + " " + p.k + " " + (p.m || "")).toLowerCase().includes(q)).slice(0, 40);
   box.innerHTML = hits.length
     ? hits.map(p => `<a class="shit" href="${esc(INDEX.base)}${esc(p.u)}">
         <span class="sshot">${p.i ? `<img src="${esc(INDEX.pb)}${esc(p.i)}" alt="" loading="lazy">` : ""}</span>
