@@ -10,7 +10,7 @@
   --face: "Montserrat", system-ui, sans-serif;
   --face-display: "Montserrat", system-ui, sans-serif;
   --g: clamp(16px, 4.2vw, 64px);
-  --head: 68px;
+  --head: 78px;
   --ease: cubic-bezier(.22, .61, .36, 1);
 }
 .maison {
@@ -64,11 +64,13 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   background: linear-gradient(rgba(0, 0, 0, .38), rgba(0, 0, 0, 0));
   transition: opacity .4s;
 }
-.top.solid, html[data-kind="product"] .top, .menuopen .top {
+.top.solid, html[data-kind="product"] .top {
   background: var(--bg); color: var(--ink); box-shadow: 0 1px 0 var(--line);
 }
-.top.solid::before, html[data-kind="product"] .top::before, .menuopen .top::before { opacity: 0; }
-.brand { width: clamp(112px, 11vw, 142px); height: calc(clamp(112px, 11vw, 142px) * .222); }
+.top.solid::before, html[data-kind="product"] .top::before { opacity: 0; }
+.brand { display: flex; flex-direction: column; align-items: center; gap: 7px; }
+.brand .logo { width: clamp(112px, 11vw, 142px); height: calc(clamp(112px, 11vw, 142px) * .222); }
+.strap { font-size: 8px; font-weight: 500; letter-spacing: .42em; text-transform: uppercase; white-space: nowrap; padding-left: .42em; opacity: .9; }
 .hbtn {
   display: inline-flex; align-items: center; gap: 12px; justify-self: start;
   height: 44px; font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase;
@@ -84,30 +86,34 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .menuopen .burger i:last-child { top: 5px; transform: rotate(-45deg); }
 @media (max-width: 600px) { .hl { display: none; } }
 
-/* ── menu ───────────────────────────────────────────────────────────────── */
+/* ── menu: a small frosted panel; the page stays where it is behind it ── */
+.scrim {
+  position: fixed; inset: 0; z-index: 64; background: rgba(20, 19, 19, .18);
+  animation: fade .3s var(--ease);
+}
 .menu {
-  position: fixed; inset: 0; z-index: 65; background: var(--bg);
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
-  animation: fade .35s var(--ease);
+  position: fixed; z-index: 66; top: calc(var(--head) + 10px); left: var(--g);
+  width: min(320px, calc(100vw - 2 * var(--g))); max-height: calc(100svh - var(--head) - 30px);
+  overflow-y: auto; overscroll-behavior: contain; padding: 18px 22px 18px;
+  color: var(--ink); background: color-mix(in srgb, var(--bg) 78%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2); backdrop-filter: blur(22px) saturate(1.2);
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .14);
+  animation: drop .35s var(--ease);
 }
-.menuin { padding: calc(var(--head) + 5vh) var(--g) 40px; overflow-y: auto; }
-.mcats a {
-  display: flex; align-items: baseline; gap: 12px;
-  font-size: clamp(24px, 3.1vw, 42px); line-height: 1.32; font-weight: 300;
-  transition: color .25s, transform .35s var(--ease);
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .menu { background: var(--bg); }
 }
-.mcats a i { font-style: normal; font-size: 11px; letter-spacing: .1em; color: var(--mute); }
-.mcats a:hover { color: var(--accent); transform: translateX(6px); }
-.mside { margin-top: 44px; display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; }
-.mside .lbl { width: 100%; margin-bottom: 4px; }
-.mside a { font-size: 15px; font-weight: 400; }
-.mphoto { position: relative; background: var(--soft); overflow: hidden; }
-.mphoto img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  opacity: 0; transition: opacity .5s var(--ease);
+@keyframes drop { from { opacity: 0; transform: translateY(-8px); } }
+.menu .lbl { font-size: 10px; margin: 0 0 8px; }
+.mcats a, .mside a {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  padding: 5px 0; font-size: 14px; font-weight: 400; line-height: 1.35;
+  transition: color .2s, padding .3s var(--ease);
 }
-.mphoto img.on { opacity: 1; }
-@media (max-width: 820px) { .menu { grid-template-columns: 1fr; } .mphoto { display: none; } }
+.mcats a i { font-style: normal; font-size: 11px; color: var(--mute); font-variant-numeric: tabular-nums; }
+.mcats a:hover, .mside a:hover { color: var(--accent); padding-left: 4px; }
+.mside { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
 @keyframes fade { from { opacity: 0; } }
 
 /* ── buttons ────────────────────────────────────────────────────────────── */
@@ -139,10 +145,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, .62), rgba(0, 0, 0, .12) 55%, rgba(0, 0, 0, 0));
 }
-.heroin { position: absolute; left: var(--g); right: var(--g); bottom: clamp(96px, 15vh, 150px); max-width: 1180px; }
-.heroin .lbl { color: rgba(255, 255, 255, .8); margin-bottom: 22px; }
-.heroin h1 { font-size: clamp(32px, 5vw, 80px); line-height: 1.04; font-weight: 300; margin-bottom: 36px; }
-.heroin h1 em { font-style: normal; font-weight: 200; color: var(--lightbeige); }
+.down {
+  position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 1;
+  width: 44px; height: 44px; display: grid; place-items: center; color: #fff;
+}
+.down svg { width: 22px; height: 22px; animation: nudge 2.4s var(--ease) infinite; }
+@keyframes nudge { 50% { transform: translateY(6px); } }
 .herofoot {
   position: absolute; left: var(--g); right: var(--g); bottom: 30px;
   display: flex; justify-content: space-between; align-items: center; gap: 20px;
@@ -158,7 +166,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .dot.done i::after { transform: scaleX(1); }
 @keyframes fill { to { transform: scaleX(1); } }
 
-.intro { padding: clamp(80px, 13vh, 150px) var(--g); text-align: center; }
+.intro { scroll-margin-top: var(--head); padding: clamp(80px, 13vh, 150px) var(--g); text-align: center; }
 .intro p { max-width: 980px; margin: 0 auto; font-size: clamp(21px, 2.5vw, 34px); line-height: 1.42; font-weight: 300; }
 .intro b { font-weight: 400; color: var(--accent); }
 
@@ -463,5 +471,5 @@ html[data-kind="product"] .railsec { border-top: 1px solid var(--line); }
 }
 @media (max-width: 600px) {
   .herofoot { bottom: 74px; }
-  .heroin { bottom: 130px; }
+  .down { bottom: 116px; }
 }

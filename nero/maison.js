@@ -15,23 +15,16 @@ const solid = () => head.classList.toggle("solid", window.scrollY > 40);
 window.addEventListener("scroll", solid, { passive: true });
 solid();
 
-/* ── menu ───────────────────────────────────────────────────────────────── */
-const menu = $("menu"), menubtn = $("menubtn"), mimg = $("mimg");
+/* ── menu: a small panel over the page, which stays where it is ───────── */
+const menu = $("menu"), menubtn = $("menubtn"), scrim = $("scrim");
 function setMenu(open) {
   menu.hidden = !open;
+  scrim.hidden = !open;
   document.documentElement.classList.toggle("menuopen", open);
   menubtn.setAttribute("aria-expanded", String(open));
-  lock(open);
 }
 menubtn.addEventListener("click", () => setMenu(menu.hidden));
-menu.querySelectorAll("[data-img]").forEach(a => {
-  a.addEventListener("mouseenter", () => {
-    if (!a.dataset.img) return;
-    mimg.classList.remove("on");
-    mimg.onload = () => mimg.classList.add("on");
-    mimg.src = a.dataset.img;
-  });
-});
+scrim.addEventListener("click", () => setMenu(false));
 
 /* ── home: the opening pictures change on their own ─────────────────────── */
 const hero = $("hero");
