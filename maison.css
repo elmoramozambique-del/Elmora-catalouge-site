@@ -544,3 +544,4 @@ html[data-kind="product"] .railsec { border-top: 1px solid var(--line); }
 .wafab svg { width: 26px; height: 26px; stroke-width: 1.4; }
 .menuopen .wafab { opacity: 0; pointer-events: none; }
 html[data-kind="home"] .herofoot { right: calc(var(--g) + 64px); }
+.phead .visit { margin-right: 22px; }
