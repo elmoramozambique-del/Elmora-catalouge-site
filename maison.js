@@ -194,6 +194,23 @@ if (pgal) {
   });
 }
 
+/* ── home: the showroom films play while on screen; a tap pauses one ───── */
+const reels = [...document.querySelectorAll(".reel video")];
+if (reels.length) {
+  const held = new Set();
+  const play = v => { const p = v.play(); if (p) p.catch(() => {}); };
+  reels.forEach(v => v.addEventListener("click", () => {
+    if (v.paused) { held.delete(v); play(v); } else { held.add(v); v.pause(); }
+  }));
+  if (!calm && "IntersectionObserver" in window) {
+    const watch = new IntersectionObserver(es => es.forEach(en => {
+      const v = en.target;
+      if (en.isIntersecting) { if (!held.has(v)) play(v); } else v.pause();
+    }), { threshold: 0.5 });
+    reels.forEach(v => watch.observe(v));
+  }
+}
+
 /* ── search ─────────────────────────────────────────────────────────────── */
 const search = $("search");
 const openSearch = () => { setMenu(false); search.hidden = false; lock(true); $("q").focus(); };
