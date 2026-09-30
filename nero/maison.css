@@ -1,14 +1,16 @@
 /* ELMORA — "Maison" design direction.
    In the manner of the Italian houses: the photograph first, quiet type, rows
    that swipe sideways, generous space. Colours are the brand book's five;
-   the type is Montserrat until the licensed Volkga files arrive, when only
-   --face-display changes. Two variants: .maison (light) and .nero (dark). */
+   headlines are set in Volkga, the brand's primary typeface, and text in Montserrat.
+   Two variants: .maison (light) and .nero (dark). */
+
+@font-face { font-family: "Volkga"; src: url(volkga.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 
 :root {
   --charcoal: #2E2E2E; --berry: #7D4047; --wine: #6D444A;
   --beige: #B3A799; --lightbeige: #DCD5CE;
   --face: "Montserrat", system-ui, sans-serif;
-  --face-display: "Montserrat", system-ui, sans-serif;
+  --face-display: "Volkga", "Montserrat", system-ui, sans-serif;
   --g: clamp(16px, 4.2vw, 64px);
   --head: 78px;
   --ease: cubic-bezier(.22, .61, .36, 1);
@@ -35,7 +37,8 @@ body {
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 img { display: block; max-width: 100%; }
-h1, h2, h3 { font-family: var(--face-display); font-weight: 300; margin: 0; letter-spacing: -.012em; }
+/* headlines in the brand's primary typeface, set as the brand book sets it: capitals, open spacing */
+h1, h2, h3 { font-family: var(--face-display); font-weight: 400; margin: 0; letter-spacing: .06em; text-transform: uppercase; }
 svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.3; }
 .num { font-variant-numeric: tabular-nums; }
 .lbl {
@@ -243,7 +246,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .fimg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
 .fimg:hover img { transform: scale(1.04); }
 .ftext { padding: clamp(40px, 6vw, 96px) clamp(24px, 5vw, 80px); }
-.ftext h2 { font-size: clamp(44px, 6.4vw, 96px); font-weight: 200; line-height: 1; margin: 16px 0 18px; }
+.ftext h2 { font-size: clamp(36px, 4.8vw, 72px); font-weight: 400; line-height: 1; margin: 16px 0 18px; }
 .ftext p { margin: 0 0 32px; color: var(--mute); font-size: 14px; }
 .minis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 44px; }
 .mini .frame { aspect-ratio: 1; }
@@ -260,7 +263,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .band::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, .34); }
 .bandin { position: relative; z-index: 1; padding: 0 var(--g); }
 .bandin .lbl { color: rgba(255, 255, 255, .82); }
-.bandin h2 { font-size: clamp(34px, 5vw, 72px); font-weight: 200; line-height: 1.08; margin: 18px 0 34px; }
+.bandin h2 { font-size: clamp(28px, 4vw, 56px); font-weight: 400; line-height: 1.08; margin: 18px 0 34px; }
 
 /* ── home: every category, as an index ──────────────────────────────────── */
 .index { padding: clamp(72px, 12vh, 140px) var(--g); }
@@ -363,7 +366,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .crumb { font-size: 12px; color: var(--mute); margin-bottom: 30px; display: flex; gap: 10px; flex-wrap: wrap; }
 .crumb i { font-style: normal; opacity: .5; }
 .crumb a:hover { color: var(--ink); }
-.phead h1 { font-size: clamp(30px, 4vw, 58px); line-height: 1.06; margin: 14px 0 0; }
+.phead h1 { font-size: clamp(26px, 3.2vw, 44px); line-height: 1.06; margin: 14px 0 0; }
 .price { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 .price .n { font-size: clamp(22px, 2.2vw, 30px); font-weight: 300; font-variant-numeric: tabular-nums; }
 .note { font-size: 13px; color: var(--mute); margin: 10px 0 0; }
