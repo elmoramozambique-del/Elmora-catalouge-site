@@ -593,3 +593,6 @@ html[data-kind="home"] .herofoot { right: calc(var(--g) + 64px); }
 }
 .note a { color: var(--ink); border-bottom: 1px solid var(--line); }
 .note a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* chairs on the studio background: the frame is the same tone as the photo */
+.frame.studio, .gs.studio { background: #F4F1ED; }
