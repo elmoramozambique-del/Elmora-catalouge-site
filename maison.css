@@ -591,3 +591,5 @@ html[data-kind="home"] .herofoot { right: calc(var(--g) + 64px); }
   .feature.big .ftext { grid-template-columns: 1fr; }
   .feature.big .minis { grid-row: auto; grid-column: auto; margin-top: 28px; }
 }
+.note a { color: var(--ink); border-bottom: 1px solid var(--line); }
+.note a:hover { color: var(--accent); border-color: var(--accent); }
