@@ -596,3 +596,11 @@ html[data-kind="home"] .herofoot { right: calc(var(--g) + 64px); }
 
 /* chairs on the studio background: the frame is the same tone as the photo */
 .frame.studio, .gs.studio { background: #F4F1ED; }
+
+/* ── the first picture of a page fills the screen, as on the great houses' sites (owner, 2 Oct 2026) */
+.cover { height: 100vh; height: 100svh; min-height: 520px; max-height: none; }
+.coverin { bottom: clamp(70px, 11vh, 120px); }
+.coverin .lbl { font-size: 11px; letter-spacing: .3em; }
+.coverin h1 { font-size: clamp(30px, 4vw, 58px); letter-spacing: .06em; margin-top: 12px; }
+.cover .down { bottom: clamp(16px, 3vh, 30px); }
+.after { display: block; scroll-margin-top: var(--head); }
