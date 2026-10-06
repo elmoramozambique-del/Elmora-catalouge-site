@@ -604,3 +604,14 @@ html[data-kind="home"] .herofoot { right: calc(var(--g) + 64px); }
 .coverin h1 { font-size: clamp(30px, 4vw, 58px); letter-spacing: .06em; margin-top: 12px; }
 .cover .down { bottom: clamp(16px, 3vh, 30px); }
 .after { display: block; scroll-margin-top: var(--head); }
+
+/* ── projects: several galleries; every picture keeps its own shape (6 Oct 2026) */
+.project { border-top: 1px solid var(--line); scroll-margin-top: var(--head); }
+.project .pgal { display: block; columns: 3; column-gap: 10px; }
+.project .ptile { width: 100%; aspect-ratio: auto; margin: 0 0 10px; break-inside: avoid; }
+.project .ptile img { height: auto; }
+.pwide { display: block; width: 100%; height: auto; margin-top: 40px; }
+.pindex { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; }
+.pindex a { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+.pindex a:hover { color: var(--accent); border-color: var(--accent); }
+@media (max-width: 820px) { .project .pgal { columns: 2; } }

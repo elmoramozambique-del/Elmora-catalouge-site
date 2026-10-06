@@ -184,32 +184,14 @@ if (gal && gal.dataset.large) {
   $("gzoom").addEventListener("click", () => openViewer(large, current(), gal.dataset.title));
 }
 
-/* ── projects: a tap opens the photograph full screen ───────────────────── */
-const pgal = $("pgal");
-if (pgal) {
+/* ── projects: a tap opens the picture full screen ──────────────────────── */
+document.querySelectorAll(".pgal").forEach(pgal => {
   const list = JSON.parse(pgal.dataset.large || "[]");
   pgal.addEventListener("click", e => {
     const t = e.target.closest("[data-zoom]");
     if (t) openViewer(list, +t.dataset.zoom, pgal.dataset.title || "");
   });
-}
-
-/* ── home: the showroom films play while on screen; a tap pauses one ───── */
-const reels = [...document.querySelectorAll(".reel video")];
-if (reels.length) {
-  const held = new Set();
-  const play = v => { const p = v.play(); if (p) p.catch(() => {}); };
-  reels.forEach(v => v.addEventListener("click", () => {
-    if (v.paused) { held.delete(v); play(v); } else { held.add(v); v.pause(); }
-  }));
-  if (!calm && "IntersectionObserver" in window) {
-    const watch = new IntersectionObserver(es => es.forEach(en => {
-      const v = en.target;
-      if (en.isIntersecting) { if (!held.has(v)) play(v); } else v.pause();
-    }), { threshold: 0.5 });
-    reels.forEach(v => watch.observe(v));
-  }
-}
+});
 
 /* ── search ─────────────────────────────────────────────────────────────── */
 const search = $("search");
